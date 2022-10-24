@@ -1,0 +1,26 @@
+container:
+  image: node:latest
+
+test_task:
+  name: Tests
+  node_modules_cache:
+    folder: node_modules
+    ingerprint_script: cat package-lock.json
+    populate_script: npm ci
+  test_script: npm run lint && npm test
+
+deploy_task:
+  only_if: $CIRRUS_BRANCH == 'master'
+  depends_on: Tests
+  node_modules_cache:
+    folder: node_modules
+    ingerprint_script: cat package-lock.json
+    populate_script: npm ci
+  env:
+    GITHUB_TOKEN: ENCRYPTED[18ced7b4cc3f59281e0b655c695ebcab27145518c826f315061146770e8b7a12010eacae9bb2a64fb2cb943c8bc1d98d]
+    USER: korneef
+    REPO: REPO_NAME
+  deploy_script: 
+    - git config --global user.name "Cirrus-CI"
+    - git config --global user.email "ci@cirruslabs.org"
+    - npm run build && npx push-dir --dir=dist --branch=gh-pages --force --verbose
