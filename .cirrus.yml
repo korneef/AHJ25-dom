@@ -17,9 +17,9 @@ deploy_task:
     ingerprint_script: cat package-lock.json
     populate_script: npm ci
   env:
-    GITHUB_TOKEN: ENCRYPTED[18ced7b4cc3f59281e0b655c695ebcab27145518c826f315061146770e8b7a12010eacae9bb2a64fb2cb943c8bc1d98d]
+    GITHUB_TOKEN: ENCRYPTED[7c4034b21693ed5af5fd2c88901b8ea028c006be1727beefe8d8deb506b1e8d95cfd87ac147708f0678960ebabc28614]
     USER: korneef
-    REPO: REPO_NAME
+    REPO: AHJ25-dom
   deploy_script: 
     - git config --global user.name "Cirrus-CI"
     - git config --global user.email "ci@cirruslabs.org"
